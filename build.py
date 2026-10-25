@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Static site generator for the ThermoTally demand-validation site.
-Python 3.8+. Only extra dependency: reportlab (for the 5 printable PDFs).
+Python 3.8+. Only extra dependency: reportlab (for the printable PDFs).
   pip install reportlab && python3 build.py      -> writes the site into ./docs
 If reportlab is missing, the pre-built PDFs in static/downloads/ are copied instead.
 All settings live in site.config.json.
@@ -164,8 +164,17 @@ def guide_cards(items=None):
 def niche_cards():
     return "".join(f'<a class="card niche" href="{url(n["path"])}"><span class="emoji" aria-hidden="true">{n["icon"]}</span><h3>{html.escape(n["nav"])}</h3><p>{html.escape(n["teaser"])}</p></a>' for n in NICHES)
 
+GUIDE_GROUPS = ["Temperature logs", "Cooling, time & date marking", "Cleaning, sanitizing & thermometers",
+                "Inspections, records & rules", "By type of business"]
+
+def pick(items, slugs):
+    by = {x["slug"]: x for x in items}
+    return [by[s] for s in slugs if s in by]
+
 def expand(body):
-    return (body.replace("{{TEMPLATE_CARDS}}", tpl_cards()).replace("{{GUIDE_CARDS}}", guide_cards())
+    body = re.sub(r"\{\{GUIDE_CARDS:([a-z0-9,-]+)\}\}", lambda m: guide_cards(pick(GUIDES, m.group(1).split(","))), body)
+    body = re.sub(r"\{\{TEMPLATE_CARDS:([a-z0-9,-]+)\}\}", lambda m: tpl_cards(pick(TEMPLATES, m.group(1).split(","))), body)
+    return (body.replace("{{TEMPLATE_CARDS}}", tpl_cards()).replace("{{GUIDE_CARDS}}", guide_cards([g for g in GUIDES if g.get("featured")] or GUIDES))
                 .replace("{{NICHE_CARDS}}", niche_cards()))
 
 def build_home():
@@ -198,7 +207,7 @@ def build_guides():
     for g in GUIDES:
         rel = [x for x in GUIDES if x["slug"] in g.get("related", [])]
         reltpl = [x for x in TEMPLATES if x["slug"] in g.get("templates", [])]
-        b = g["body"]
+        b = expand(g["body"])
         for t in TEMPLATES:
             b = b.replace("{{DL:" + t["slug"] + "}}", dl_button(t, "guide-" + g["slug"]))
         body = f'''<div class="wrap doc">
@@ -239,16 +248,16 @@ def build_templates():
 
 def build_indexes():
     body = f'''<section><div class="wrap"><p class="eyebrow">Free printables</p><h1 class="h2">Free food safety log templates (PDF)</h1>
-<p class="sub">Five printable logs built on the FDA Food Code limits: fridge and freezer, hot and cold holding, cooling, receiving and cleaning. Print them, hang them on a clipboard, no email needed.</p>
+<p class="sub">{len(TEMPLATES)} printable logs built on the FDA Food Code limits: fridge and freezer, hot and cold holding, cooling, receiving, cleaning, sanitizer testing, thermometer calibration and time as a public health control. Print them, hang them on a clipboard, no email needed.</p>
 <div class="grid g3">{tpl_cards()}</div>{cta("templates-index")}</div></section>'''
     page("/templates/", f"Free Food Safety Log Templates: Temperature, Cooling, Receiving, Cleaning (PDF) | {BRAND}",
-         "Download 5 free printable food safety logs: fridge/freezer temperature log, hot & cold holding log, food cooling log, receiving log and kitchen cleaning schedule.",
+         f"Download {len(TEMPLATES)} free printable food safety logs: fridge/freezer temperature log, hot & cold holding, cooling, receiving, cleaning schedule, sanitizer test log, thermometer calibration log and TPHC log.",
          body, [breadcrumbs([("Home", "/"), ("Free templates", "/templates/")])])
     body = f'''<section><div class="wrap"><p class="eyebrow">Guides</p><h1 class="h2">Food safety logs, explained in plain English</h1>
 <p class="sub">What to record, how often, the temperatures that matter, and what inspectors look for, based on the FDA Food Code.</p>
-<div class="grid g2">{guide_cards()}</div></div></section>'''
+{"".join(f'<h2 style="font-size:22px;margin:32px 0 12px">{html.escape(grp)}</h2><div class="grid g2">{guide_cards([g for g in GUIDES if g.get("group", GUIDE_GROUPS[0]) == grp])}</div>' for grp in GUIDE_GROUPS if any(g.get("group", GUIDE_GROUPS[0]) == grp for g in GUIDES))}</div></section>'''
     page("/guides/", f"Food Safety Log Guides for Small Kitchens | {BRAND}",
-         "Plain-English guides to temperature logs, cooling logs, hot and cold holding, cleaning schedules and digital vs paper records, based on the FDA Food Code.",
+         "Plain-English guides to temperature logs, cooling, date marking, TPHC, sanitizer testing, thermometer calibration, health inspections and record keeping, based on the FDA Food Code.",
          body, [breadcrumbs([("Home", "/"), ("Guides", "/guides/")])])
 
 def build_waitlist():

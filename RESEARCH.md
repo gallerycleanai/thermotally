@@ -133,3 +133,31 @@ Wedge = SEO distribution through free, high-quality printable logs + vertical pa
 ## 6. Rules cited on the site (FDA Food Code 2022; same limits in the 2026 edition)
 Cold holding ≤41°F, hot holding ≥135°F (§3-501.16) · cooling 135→70°F in 2 h, →41°F in 6 h; ambient ingredients 4 h (§3-501.14) · reheat 165°F within 2 h (§3-403.11) · receiving (§3-202.11) · frozen food kept frozen (§3-501.11) · cooking temps (§3-401.11) · TPHC 4 h (§3-501.19) · food-contact surfaces every 4 h (§4-602.11(C)) · sanitizer test kit (§4-302.14) · thermometer accuracy (§4-203.11–.12) · thermometer placement (§4-204.112) · HACCP plan required/contents (§8-201.13/.14) · shellstock tags 90 days (§3-203.12) · 2026: written Food Safety Management System (§8-201.15, per FDA's summary of changes).
 Every page carries the disclaimer: **not legal advice; check your local health department.**
+
+## 7. SEO content expansion: keyword → page map (Oct 25, 2026)
+Target keywords were chosen for buyer/operator intent. They're not backed by measured search volumes (no paid keyword tools were used), so check them in Google Search Console once impressions come in. Every page cites the FDA Food Code 2022 (and FDA/USDA sources where noted) and carries the "not legal advice; check your local health department" disclaimer.
+
+| Target keyword | Page | Type |
+|---|---|---|
+| walk-in cooler temperature log | /guides/walk-in-cooler-temperature-log/ | Guide |
+| freezer temperature log | /guides/freezer-temperature-log/ | Guide |
+| food truck temperature log | /guides/food-truck-temperature-log/ | Guide |
+| sanitizer concentration ppm (chlorine, quat) | /guides/sanitizer-concentration-chlorine-quat-ppm/ | Guide |
+| how to calibrate a food thermometer | /guides/how-to-calibrate-a-food-thermometer/ | Guide |
+| date marking 7 day rule | /guides/date-marking-7-day-rule/ | Guide |
+| time as a public health control (TPHC) | /guides/time-as-a-public-health-control/ | Guide |
+| how to cool soup quickly / cooling large batches | /guides/how-to-cool-soup-and-large-batches/ | Guide |
+| restaurant health inspection checklist | /guides/restaurant-health-inspection-checklist/ | Guide |
+| what health inspectors look for (temperature logs) | /guides/what-health-inspectors-look-for-in-temperature-logs/ | Guide |
+| how long to keep food safety records | /guides/how-long-to-keep-food-safety-records/ | Guide |
+| cottage food / home baker food safety log | /guides/cottage-food-home-baker-food-safety-log/ | Guide (general; weak paying segment) |
+| catering food transport temperature log | /guides/catering-food-transport-temperature-log/ | Guide |
+| food truck health inspection checklist | /guides/food-truck-health-inspection-checklist/ | Guide |
+| FDA Food Code by state / which food code does my state use | /guides/fda-food-code-by-state/ | Guide (from FDA's adoption report covering 2024) |
+| thermometer calibration log | /templates/thermometer-calibration-log/ (+ PDF) | Template |
+| sanitizer test log / sanitizer log sheet | /templates/sanitizer-test-log/ (+ PDF) | Template |
+| TPHC log / time as a public health control log | /templates/time-as-a-public-health-control-log/ (+ PDF) | Template |
+
+New free PDFs: /downloads/thermometer-calibration-log.pdf, /downloads/sanitizer-test-log.pdf, /downloads/time-as-a-public-health-control-log.pdf.
+Structure: the guides index is now grouped by topic; niche pages (restaurants, food trucks, cafés & bakeries) link to their relevant guides; the home page still shows the 6 featured guides.
+Sources added: FDA "Adoption of the FDA Food Code by State and Territorial Agencies" (2024 data); FDA Food Traceability Rule (FSMA 204) page (compliance date July 20, 2028); USDA FSIS freezing guidance.

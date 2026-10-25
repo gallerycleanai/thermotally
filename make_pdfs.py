@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generates the 5 free printable food-safety log PDFs (requires: pip install reportlab).
+"""Generates the free printable food-safety log PDFs (requires: pip install reportlab).
 Called by build.py; can also run alone: python3 make_pdfs.py <out_dir> <site_url_for_footer>"""
 import sys, pathlib
 from reportlab.lib.pagesizes import letter, landscape
@@ -111,6 +111,35 @@ def make_all(out, brand, url):
            "Initial each box when done; manager reviews weekly"],
           ["Task"]+days+["Notes / ppm"], [3.6]+[0.55]*7+[1.6], rows, f"{FC} §4-602.11, §4-302.14, §4-501.114", brand, url, row_h=0.285*inch,
           first_col=lambda i: Paragraph(tasks[i], SM))
+    made.append(p)
+    # 6 thermometer calibration
+    p = out/"thermometer-calibration-log.pdf"
+    build(p, "Thermometer Calibration Log", ["Business", "Month / year", "Elevation (ft)"],
+          ["<b>Food probes (°F scale): accurate to ±2°F</b> — §4-203.11(B)", "<b>Air / water thermometers (°F): ±3°F</b> — §4-203.12(B)",
+           "Calibrate per the manufacturer's instructions — §4-502.11(B)", "<b>Ice-point check: 32°F (0°C)</b> in a full ice-water slurry",
+           "Boiling point is 212°F only at sea level; it drops about 1°F per ~500 ft of elevation", "Check weekly, after a drop, and before each shift on high-risk days"],
+          ["Date","Time","Thermometer ID / type","Method (ice / boil)","Reading °F","Should read °F","Off by °F","Within limit? (Y/N)","Adjusted to °F","Action (recalibrated / replaced / removed)","Initials"],
+          [0.7,0.55,1.5,0.75,0.6,0.65,0.55,0.7,0.7,2.2,0.55], 20, f"{FC} §4-203.11, §4-203.12, §4-502.11", brand, url, row_h=0.27*inch)
+    made.append(p)
+    # 7 sanitizer test log
+    p = out/"sanitizer-test-log.pdf"
+    build(p, "Sanitizer Concentration Test Log (chlorine / quat / iodine)", ["Business", "Week of", "Sanitizer product", "Label range (ppm)"],
+          ["Test with a test kit or strips made for your sanitizer — §4-302.14, §4-501.116",
+           "<b>Chlorine:</b> 25–49 ppm needs water ≥120°F; 50–99 ppm needs ≥100°F (pH ≤10) or ≥75°F (pH ≤8); 100 ppm needs ≥55°F — §4-501.114(A)",
+           "<b>Quat:</b> ppm per the EPA label, water ≥75°F, hardness ≤500 ppm or per label — §4-501.114(C)",
+           "<b>Iodine:</b> 12.5–25 ppm, water ≥68°F, pH ≤5 or per label — §4-501.114(B)",
+           "Wiping-cloth buckets must be at sanitizing strength — §3-304.14(B)"],
+          ["Date","Time","Where (3-comp sink / bucket / dish machine / bottle)","Sanitizer","Reading (ppm)","Water °F","In range? (Y/N)","Action (remade, re-tested ppm)","Initials","Mgr OK"],
+          [0.7,0.55,2.1,0.9,0.75,0.65,0.7,2.3,0.6,0.55], 20, f"{FC} §4-302.14, §4-501.114, §4-703.11, §3-304.14", brand, url, row_h=0.27*inch)
+    made.append(p)
+    # 8 time as a public health control
+    p = out/"time-as-a-public-health-control-log.pdf"
+    build(p, "Time as a Public Health Control (TPHC) Log", ["Business", "Date", "Station", "Written procedure on file (Y/N)"],
+          ["<b>4-hour rule:</b> start at ≤41°F or ≥135°F; mark the time 4 h after removal; cook &amp; serve, serve, or discard within 4 h — §3-501.19(B)",
+           "<b>6-hour rule (cold food only):</b> start at ≤41°F; food may never exceed 70°F; mark removal time and the 6-h discard time — §3-501.19(C)",
+           "Unmarked or over-time food must be discarded", "Written procedures required (§3-501.19(A)); some jurisdictions require approval or do not allow TPHC"],
+          ["Food item","Pan / location","Start °F","Time removed","4 h or 6 h?","Discard by","Labeled? (Y/N)","6 h option: temp checks (≤70°F)","Served / discarded at (time)","Initials"],
+          [1.6,1.0,0.6,0.75,0.65,0.75,0.65,2.0,1.1,0.55], 18, f"{FC} §3-501.19", brand, url, row_h=0.3*inch)
     made.append(p)
     return made
 
