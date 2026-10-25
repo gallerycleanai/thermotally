@@ -1,0 +1,12 @@
+{
+  "hosting": {
+    "public": "docs",
+    "cleanUrls": true,
+    "trailingSlash": true,
+    "ignore": ["firebase.json", "**/.*"],
+    "headers": [
+      { "source": "**/*.@(css|svg|png)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800" }] },
+      { "source": "/downloads/**", "headers": [{ "key": "Content-Disposition", "value": "attachment" }, { "key": "Cache-Control", "value": "public, max-age=86400" }] }
+    ]
+  }
+}

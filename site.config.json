@@ -1,0 +1,11 @@
+{
+  "_comment": "The ONLY file you need to edit before deploying. Then run: python3 build.py",
+  "BRAND": "ThermoTally",
+  "SITE_URL": "https://gallerycleanai.github.io",
+  "BASE_PATH": "/thermotally",
+  "CUSTOM_DOMAIN": "",
+  "WAITLIST_FORM_URL": "WAITLIST_FORM_URL",
+  "GOATCOUNTER_CODE": "GOATCOUNTER_CODE",
+  "GOOGLE_SITE_VERIFICATION": "GOOGLE_SITE_VERIFICATION",
+  "CONTACT_EMAIL": ""
+}
